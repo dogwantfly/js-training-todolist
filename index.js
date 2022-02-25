@@ -36,7 +36,6 @@ function addTodo(e) {
     id: new Date().getTime()
   };
   todoList.unshift(obj);
-  console.log(todoList);
   renderTodo(todoList);
   tab.querySelectorAll('li').forEach(item => {
     item.classList.remove('active');
@@ -46,16 +45,13 @@ function addTodo(e) {
 };
 function handleTodo(e) {
   let id = Number(e.target.closest('li').dataset.id);
-  console.log(id)
   let index = todoList.findIndex((item) => item.id === id);
-  console.log(index);
   if (e.target.nodeName=== 'INPUT') {
     if(e.target.checked) {
       todoList[index].isCompleted = true;
     } else {
       todoList[index].isCompleted = false;
     }
-    console.log(todoList);
   }
 
   if (e.target.classList.contains('delete')) {
@@ -65,6 +61,10 @@ function handleTodo(e) {
 };
 function deleteTodos() {
   todoList = todoList.filter(item => !item.isCompleted)
+  tab.querySelectorAll('li').forEach(item => {
+    item.classList.remove('active');
+  })
+  defaultTab.classList.add('active');
   renderTodo(todoList);
 };
 function filterTodo(e) {
