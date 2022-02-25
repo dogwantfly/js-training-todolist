@@ -2,7 +2,7 @@ const addBtn = document.querySelector('.btn_add');
 const todo = document.querySelector('.input input');
 const list = document.querySelector('.list');
 const todoNum = document.querySelector('.list_footer p');
-const clearBtn = document.querySelector('.list_footer a');
+const clearBtn = document.querySelector('.list_footer button');
 const tab = document.querySelector('.tab');
 const defaultTab = document.querySelector('.default');
 let todoList = [];
@@ -22,7 +22,12 @@ function renderTodo(todo) {
     })
   }
   list.innerHTML = str;
-  todoNum.textContent = `${todoList.filter(item => !item.isCompleted).length} 個待完成項目`
+  todoNum.textContent = `${todoList.filter(item => !item.isCompleted).length} 個待完成項目`;
+  if (todoList.findIndex((item) => item.isCompleted) === -1) {
+    clearBtn.classList.add('d-none');
+  } else {
+    clearBtn.classList.remove('d-none');
+  }
 };
 function addTodo(e) {
   e.preventDefault();
@@ -46,14 +51,14 @@ function addTodo(e) {
 function handleTodo(e) {
   let id = Number(e.target.closest('li').dataset.id);
   let index = todoList.findIndex((item) => item.id === id);
-  if (e.target.nodeName=== 'INPUT') {
-    if(e.target.checked) {
-      todoList[index].isCompleted = true;
-    } else {
-      todoList[index].isCompleted = false;
-    }
+  if (e.target.nodeName === 'INPUT') {
+    todoList[index].isCompleted = !todoList[index].isCompleted;
   }
-
+  if (todoList.findIndex((item) => item.isCompleted) === -1) {
+    clearBtn.classList.add('d-none');
+  } else {
+    clearBtn.classList.remove('d-none');
+  }
   if (e.target.classList.contains('delete')) {
     todoList.splice(index, 1);
   }
@@ -92,6 +97,3 @@ list.addEventListener('click', handleTodo);
 clearBtn.addEventListener('click', deleteTodos);
 tab.addEventListener('click', filterTodo);
 renderTodo(todoList);
-
-
-//新增代辦後需回到「全部」的 tab

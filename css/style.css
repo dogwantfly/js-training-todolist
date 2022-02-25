@@ -264,9 +264,27 @@ input[type="text"]::placeholder {
   font-size: 14px;
 }
 
-.list_footer a {
+.list_footer button {
   color: #9f9a91;
+  display: inline-block;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
   text-decoration: none;
+  vertical-align: middle;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  cursor: pointer;
+}
+.d-none {
+  display: none !important;
+}
+.d-inline-block {
+  display: inline-block;
 }
 
 @media (max-width: 575px) {
