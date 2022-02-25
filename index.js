@@ -4,6 +4,7 @@ const list = document.querySelector('.list');
 const todoNum = document.querySelector('.list_footer p');
 const clearBtn = document.querySelector('.list_footer a');
 const tab = document.querySelector('.tab');
+const defaultTab = document.querySelector('.default');
 let todoList = [];
 function renderTodo(todo) {
   let str = '';
@@ -34,9 +35,13 @@ function addTodo(e) {
     todo: todo.value,
     id: new Date().getTime()
   };
-  todoList.push(obj);
+  todoList.unshift(obj);
   console.log(todoList);
   renderTodo(todoList);
+  tab.querySelectorAll('li').forEach(item => {
+    item.classList.remove('active');
+  })
+  defaultTab.classList.add('active');
   document.querySelector('.input input').value = '';
 };
 function handleTodo(e) {
@@ -87,3 +92,6 @@ list.addEventListener('click', handleTodo);
 clearBtn.addEventListener('click', deleteTodos);
 tab.addEventListener('click', filterTodo);
 renderTodo(todoList);
+
+
+//新增代辦後需回到「全部」的 tab
